@@ -12,7 +12,7 @@
     flex-direction: column;
     height: 60%;
     width: 50%;
-    padding-left: 50px;
+    padding-left: 50px; 
 }
 .left h1{
     font-weight: bolder;
