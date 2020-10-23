@@ -1,6 +1,5 @@
 import React,{ Component } from 'react'
 import './GetStarted.css'
-import GoogleBtn from './GoogleBtn.js'
 class GetStarted extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +33,7 @@ class GetStarted extends Component {
                         </form>
                         <button className="b3">LOG IN</button>
                         <p>Or</p>
-                        <GoogleBtn />
+                        
                     </div>
                 </div>
             </div>

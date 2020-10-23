@@ -1,5 +1,6 @@
 import React,{ Component } from 'react'
 import {Link} from 'react-router-dom'
+import GoogleBtn from './GoogleBtn.js'
 import './IntroPage.css'
 import doctors from './doctors.png'
 class IntroPage extends Component {
@@ -20,8 +21,8 @@ class IntroPage extends Component {
                             ---------------------------------------------------------------
                             ---------------------------------------------------------------
                             ---------------------------------------------------------------/</p>
-                        <Link to="/GetStarted">
-                            <button>Get Started</button>
+                        <Link to="/MyProfile">             
+                            <GoogleBtn />
                         </Link>
                     </div>
                     <div className="right">
