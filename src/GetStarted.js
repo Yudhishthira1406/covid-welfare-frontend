@@ -21,7 +21,7 @@ class GetStarted extends Component {
             },
             Username:"",pass:""
         }
-        this.handleSubmit=this.handleSubmit.bind(this);
+        //this.handleSubmit=this.handleSubmit.bind(this);
         this.handleSignUp=this.handleSignUp.bind(this);
         this.handleUsnmChange=this.handleUsnmChange.bind(this);
         this.handleEmailChange=this.handleEmailChange.bind(this);
@@ -39,15 +39,6 @@ class GetStarted extends Component {
     handleLoginpass(e){
         this.setState({
             pass:e.target.value,
-        })
-    }
-    handleSubmit(){
-        axios.post('http://127.0.0.1:8000/user/register/',this.state.User)
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
         })
     }
     handleUsnmChange=(e)=>{
@@ -105,18 +96,19 @@ class GetStarted extends Component {
           }*/
     }
     handleLogin(){
-        console.log(this.state.username,this.state.pass);
         axios.post('http://127.0.0.1:8000/api/user/login/',{
             username: this.state.Username,
             password: this.state.pass
         })
         .then(response => {
-            console.log(response);
-            this.props.history.push(`/MyProfile/${this.state.Username}`);
+            this.props.handleChange(response.data.token,this.state.Username);
+            console.log(this.props.token, this.props.username);
+            this.props.history.push(`/MyProfile/${this.state.Username}/${response.data.token}`);
         })
-        this.props.context.updateValue({
-            
+        .catch(error=>{
+            console.log(error);
         })
+        
         
     }
     render() { 

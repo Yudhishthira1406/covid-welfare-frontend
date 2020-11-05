@@ -16,7 +16,7 @@ class Navbar extends Component {
         return (
             <div className="Navbar-prnt">
                 <div className="Navbar-cntr">
-                        <Link to="/MyProfile" className="link one">
+                        <Link to="/MyProfile/" className="link one">
                             <button className="nav-button">My Profile</button>
                         </Link>
                         <Link to="/Seek" className="link">

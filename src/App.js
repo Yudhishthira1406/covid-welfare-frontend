@@ -20,7 +20,13 @@ import { UserProvider } from './UserContext';
 class App extends Component { 
   constructor(props) {
     super(props);
-    this.state = {token:"",userName:""}
+    this.state = {token:"",username:""}
+    this.handleChange=this.handleChange.bind(this);
+  }
+  handleChange(token,username){
+    this.setState({
+      token:token,username:username,
+    })
   }
   render() { 
     return ( 
@@ -32,22 +38,22 @@ class App extends Component {
               <IntroPage />
             </Route>          
             <Route exact path="/GetStarted" >
-              <GetStarted />
+              <GetStarted token={this.state.token} username={this.state.username} handleChange={this.handleChange} />
             </Route>          
-            <Route path="/MyProfile">
-              <MyProfile />
+            <Route path="/MyProfile/:username/:token">
+              <MyProfile token={this.state.token} username={this.state.username} />
             </Route>          
-            <Route exact path="/Navbar">
-              <Navbar />
+            <Route exact path="/Navbar/:username/:token">
+              <Navbar token={this.state.token} username={this.state.username} />
             </Route>
-            <Route exact path="/Seek">
-              <Seek />
+            <Route exact path="/Seek/:username/:token">
+              <Seek token={this.state.token} username={this.state.username} />
             </Route>
-            <Route exact path="/Provide">
-              <Provide />
+            <Route exact path="/Provide/:username/:token">
+              <Provide token={this.state.token} username={this.state.username} />
             </Route>
-            <Route exact path="/Smap">
-              <Smap />
+            <Route exact path="/Smap/:username/:token">
+              <Smap token={this.state.token} username={this.state.username} />
             </Route>
           </Switch>
         </Router>
