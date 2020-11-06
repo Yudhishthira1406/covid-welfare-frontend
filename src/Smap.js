@@ -2,12 +2,13 @@ import React,{ Component } from 'react'
 import { render } from "react-dom"
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import './Smap.css'
+import axios from 'axios';
 
 export class Smap extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      my_lat: 1,my_lon: 1
+      my_lat: 1,my_lon: 1,Users:""
     };
     this.getCoords=this.getCoords.bind(this);
     this.getCoordinates=this.getCoordinates.bind(this);
@@ -15,7 +16,22 @@ export class Smap extends Component{
   }
   componentDidMount(){
     this.getCoords();
-  }
+    axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })      
+        .then(response => {
+            this.setState({
+                User:response,
+            })
+            console.log(this.state.User);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        console.log(localStorage.getItem('aaa'))
+        }
   getCoords = (e) => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.getCoordinates);

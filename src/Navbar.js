@@ -5,33 +5,42 @@ import {
   Switch,
   Route, 
   Link,
-  Redirect
+  Redirect,
+  withRouter
 } from "react-router-dom";
 class Navbar extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {username:this.props.username,token:this.props.token}
+        this.handleClick=this.handleClick.bind(this);
+        this.handleLogout=this.handleLogout.bind(this);
+    }
+    componentDidMount(){
+        this.setState({
+            username:this.props.username,token:this.props.token
+        })
+    }
+    handleClick(e){
+        this.props.history.push(`/${e.target.value}/${localStorage.getItem('username')}/`);
+    }
+    handleLogout(){
+        localStorage.removeItem('username');
+        localStorage.removeItem('token');
+        this.props.history.push('/GetStarted');
     }
     render(){ 
         return (
             <div className="Navbar-prnt">
                 <div className="Navbar-cntr">
-                        <Link to="/MyProfile/" className="link one">
-                            <button className="nav-button">My Profile</button>
-                        </Link>
-                        <Link to="/Seek" className="link">
-                            <button className="nav-button">Seek</button>
-                        </Link>
-                        <Link to="/Provide" className="link">
-                            <button className="nav-button">Provide</button>
-                        </Link>
-                        <Link to="/Notifications" className="link">
-                            <button className="nav-button">Notifications</button>
-                        </Link>
+                            <button className="nav-button one" value="MyProfile" onClick={this.handleClick}>My Profile</button>
+                            <button className="nav-button" value="Seek" onClick={this.handleClick}>Seek</button>
+                            <button className="nav-button" value="Provide" onClick={this.handleClick}>Provide</button>
+                            <button className="nav-button" value="Notifications" onClick={this.handleClick}>Notifications</button>
+                            <button className="nav-button" value="Logout" onClick={this.handleLogout}>Logout</button>
                 </div>
             </div>
         );
     }
 }
  
-export default Navbar;
+export default withRouter(Navbar);

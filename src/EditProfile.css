@@ -1,0 +1,30 @@
+
+.EditProfile-container{
+    background-color: #212121   ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.EditProfile-form{
+    color: white;
+}
+input{
+    border: ;
+}
+button{
+    background: #32E0C4;
+    height:45px;
+    width: 220px;
+    left: 98px;
+    top: 672px;
+    border-radius: 0px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #3F3D56;
+    margin-top:20px;
+    cursor: pointer;
+}

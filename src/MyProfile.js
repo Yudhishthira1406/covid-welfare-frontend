@@ -15,29 +15,36 @@ class MyProfile extends Component {
     constructor(props){
         super(props);
         this.state = {
-            User:"",
+            User:"",username:"",token:"",
         }
+        this.handleEdit=this.handleEdit.bind(this);
     }
     componentDidMount(){
-        const username = this.props.match.params.username;
-        const token=this.props.match.params.token;
-        console.log(token,username);
-        axios.get(`http://127.0.0.1:8000/api/${username}`,{
+        if(localStorage.getItem('username')===null){
+            console.log("unauthenticated");
+            this.props.history.push("/GetStarted");
+        }
+        else{
+        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}`,{
             headers: {
-                'Authorization': `Token ${token}`
+                'Authorization': `Token ${localStorage.getItem('token')}`
             }
         })      
         .then(response => {
             this.setState({
-                User:response,
+                User:response.data,
             })
             console.log(this.state.User);
         })
         .catch(error => {
             console.log(error);
         })
+        }
     }
-    render(){ 
+    handleEdit(){
+        this.props.history.push(`/EditProfile/${localStorage.getItem('username')}`)
+    }
+    render(){
         return (
             
             <div className="MyProfile-prnt">
@@ -50,8 +57,8 @@ class MyProfile extends Component {
 
                         </div>
                         <div className="MyProfile-details">
-                            <p>Name:<br />xxxx<br />contact number:<br />xxxx<br />Blood Group<br />xxxx<br />Address<br />xxxx<br />Occupation<br />xxxx<br /></p>
-                            <button className="MyProfile-button">
+                            <p>Name:<br />{localStorage.getItem('username')}<br />contact number:<br />{this.state.User.contact}<br />Blood Group:<br />{this.state.User.blood_group}<br />Address:<br />{this.state.User.address}<br />Occupation:<br />{this.state.User.occupation}<br /></p>
+                            <button className="MyProfile-button" onClick={this.handleEdit}>
                                 Edit
                             </button>
                         </div>

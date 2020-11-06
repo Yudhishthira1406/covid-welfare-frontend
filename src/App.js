@@ -16,17 +16,15 @@ import Seek from './Seek'
 import { Smap } from './Smap';
 import Provide from './Provide';
 import { UserProvider } from './UserContext';
+import EditProfile from './EditProfile';
 
 class App extends Component { 
   constructor(props) {
     super(props);
-    this.state = {token:"",username:""}
-    this.handleChange=this.handleChange.bind(this);
+    this.state = { }
   }
-  handleChange(token,username){
-    this.setState({
-      token:token,username:username,
-    })
+  componentDidMount(){
+    
   }
   render() { 
     return ( 
@@ -38,22 +36,25 @@ class App extends Component {
               <IntroPage />
             </Route>          
             <Route exact path="/GetStarted" >
-              <GetStarted token={this.state.token} username={this.state.username} handleChange={this.handleChange} />
+              <GetStarted />
             </Route>          
-            <Route path="/MyProfile/:username/:token">
-              <MyProfile token={this.state.token} username={this.state.username} />
+            <Route path="/MyProfile/:username/">
+              <MyProfile />
             </Route>          
-            <Route exact path="/Navbar/:username/:token">
-              <Navbar token={this.state.token} username={this.state.username} />
+            <Route exact path="/Navbar/:username/">
+              <Navbar />
             </Route>
-            <Route exact path="/Seek/:username/:token">
-              <Seek token={this.state.token} username={this.state.username} />
+            <Route exact path="/Seek/:username/">
+              <Seek />
             </Route>
-            <Route exact path="/Provide/:username/:token">
-              <Provide token={this.state.token} username={this.state.username} />
+            <Route exact path="/Provide/:username/">
+              <Provide />
             </Route>
-            <Route exact path="/Smap/:username/:token">
-              <Smap token={this.state.token} username={this.state.username} />
+            <Route exact path="/Smap/:username/">
+              <Smap />
+            </Route>
+            <Route exact path="/EditProfile/:username/">
+              <EditProfile />                                       
             </Route>
           </Switch>
         </Router>
