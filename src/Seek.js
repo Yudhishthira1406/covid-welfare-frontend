@@ -14,6 +14,15 @@ class Seek extends Component {
         super(props);
         this.state = {  }
     }
+    componentDidMount(){
+        if(localStorage.getItem('username')===null){
+            console.log("unauthenticated");
+            this.props.history.push("/GetStarted");
+        }
+        else{
+            
+        }
+    }
     render(){ 
         return (
             <div className="Seek-prnt">

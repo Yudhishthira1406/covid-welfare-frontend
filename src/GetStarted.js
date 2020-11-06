@@ -87,13 +87,9 @@ class GetStarted extends Component {
         .catch(error => {
             console.log(error);
         })
-        /*try {
-            const res = await fetch('http://127.0.0.1:8000/user/register'); // fetching the data from api, before the page loaded
-            const todos = await res.json();
-            console.log(todos);
-          } catch (e) {
-            console.log(e);
-          }*/
+        this.mainInput.value="";
+        alert("Registration completd please log in now");
+        
     }
     handleLogin(){
         axios.post('http://127.0.0.1:8000/api/user/login/',{
@@ -101,9 +97,10 @@ class GetStarted extends Component {
             password: this.state.pass
         })
         .then(response => {
-            this.props.handleChange(response.data.token,this.state.Username);
-            console.log(this.props.token, this.props.username);
-            this.props.history.push(`/MyProfile/${this.state.Username}/${response.data.token}`);
+            console.log(response);
+            localStorage.setItem('token',response.data.token);
+            localStorage.setItem('username',this.state.Username);
+            this.props.history.push(`/MyProfile/${localStorage.getItem('username')}`);
         })
         .catch(error=>{
             console.log(error);
@@ -117,15 +114,15 @@ class GetStarted extends Component {
                 <div className="container">
                     <div className="signup">
                         <h1>SIGN UP</h1>
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSignUp}>
                             <label>Username</label><br />
-                            <input type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} /><br />
                             <label>Email id</label><br />
-                            <input type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} /><br />
                             <label>Password</label><br />
-                            <input type="password" value={this.state.User.password} onChange={this.handlePasswordChange} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} /><br />
                             <label>Confirm password</label><br />
-                            <input type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} /><br />
                         </form>
                         <button onClick={this.handleSignUp} className="b1">SIGN UP</button>
                     </div>
@@ -138,8 +135,7 @@ class GetStarted extends Component {
                             <input type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
                         </form>
                         <button onClick={this.handleLogin} className="b3">LOG IN</button>
-                        <p>Or</p>
-                        <GoogleBtn />
+                        
                     </div>
                 </div>
             </div>
