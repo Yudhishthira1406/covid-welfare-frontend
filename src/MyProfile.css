@@ -32,6 +32,9 @@
     border: 1px black solid;
 }
 .MyProfile-picture{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px black solid;
     height: 27%;
     width: 35%;
@@ -39,6 +42,8 @@
     margin-top: 10%;
     margin-left: 10%;
     background-color: #212121;
+    font-size: 120px;
+    color: #32E0C4;
 }
 .MyProfile-details{
     margin-top: 5%;

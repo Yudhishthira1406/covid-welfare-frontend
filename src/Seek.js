@@ -9,10 +9,11 @@ import {
   Redirect
 } from "react-router-dom";
 import Smap from './Smap';
+import axios from 'axios'
 class Seek extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { Users:[] }
     }
     componentDidMount(){
         if(localStorage.getItem('username')===null){
@@ -20,7 +21,20 @@ class Seek extends Component {
             this.props.history.push("/GetStarted");
         }
         else{
-            
+            axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })      
+        .then(response => {
+            this.setState({
+                Users:response.data.data,
+            })
+            console.log(this.state.Users);
+        })
+        .catch(error => {
+            console.log(error);
+        })
         }
     }
     render(){ 
@@ -31,7 +45,11 @@ class Seek extends Component {
                         <Navbar />
                     </div>
                     <div className="Seek-center">
-                        
+                        {this.state.Users.map(User =>(
+                            <div>
+                                {User.username}<br />
+                            </div>
+                        ))}
                     </div>
                     <div className="Seek-right">
                         <Smap />

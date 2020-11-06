@@ -8,7 +8,7 @@ export class Smap extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      my_lat: 1,my_lon: 1,Users:""
+      my_lat: 1,my_lon: 1,Users:[]
     };
     this.getCoords=this.getCoords.bind(this);
     this.getCoordinates=this.getCoordinates.bind(this);
@@ -23,16 +23,15 @@ export class Smap extends Component{
         })      
         .then(response => {
             this.setState({
-                User:response,
+                Users:response.data.data,
             })
-            console.log(this.state.User);
+            console.log(this.state.Users);
         })
         .catch(error => {
             console.log(error);
         })
-        console.log(localStorage.getItem('aaa'))
         }
-  getCoords = (e) => {
+  getCoords = () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.getCoordinates);
     }
@@ -56,7 +55,7 @@ export class Smap extends Component{
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     const d = R * c; // in metres
     //console.log(d);
-    return d;
+    return d/1000;
   }
     render() {
         const containerStyle = {
@@ -66,9 +65,7 @@ export class Smap extends Component{
         }
         const lat1=this.state.my_lat;
         const lon1=this.state.my_lon;
-        const lat2=lat1+0.0001;
-        const lon2=lon1-0.0007;
-        const dist=this.calcDistance(lat1,lon1,lat2,lon2)
+        
         return (
         <div className="Smap-cntr">
           <Map google={this.props.google}
@@ -80,15 +77,17 @@ export class Smap extends Component{
           zoom={15}
           onClick={this.onMapClicked}className="Smap-map" >
             <Marker
-                title={`distance is ${dist} meters`}
+                title={localStorage.getItem('username')}
                 name={'SOMA'}
                 position={{lat:lat1,
-                  lng: lon1}} />
-            <Marker
-                title={`distance is ${dist} meters`}
-                name={'SOMA'}
-                position={{lat:lat2,
-                  lng:lon2}} />
+                  lng: lon1}} /> 
+            {this.state.Users.map(User => (
+              <Marker
+              title={`${User.username} | ${this.calcDistance(lat1,lon1,User.lat,User.lon)} Kms `}
+              name={User.username}
+              position={{lat:User.lat,
+                lng: User.lon}} />
+            ))}
             <InfoWindow onClose={this.onInfoWindowClose}>
                 <div>
                   <h1></h1>

@@ -54,7 +54,7 @@ class MyProfile extends Component {
                     </div>
                     <div className="MyProfile-center">
                         <div className="MyProfile-picture">
-
+                            {localStorage.getItem('username')[0]}{localStorage.getItem('username')[1]}
                         </div>
                         <div className="MyProfile-details">
                             <p>Name:<br />{localStorage.getItem('username')}<br />contact number:<br />{this.state.User.contact}<br />Blood Group:<br />{this.state.User.blood_group}<br />Address:<br />{this.state.User.address}<br />Occupation:<br />{this.state.User.occupation}<br /></p>
