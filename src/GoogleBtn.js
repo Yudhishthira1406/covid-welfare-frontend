@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
-import './IntroPage.css';
+import React, { Component } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import  { Redirect } from 'react-router-dom';
-// import {Link} from 'react-router-dom';
 
 const CLIENT_ID = '641145669737-r3r370rcf0o8tg0el2ip8tohq7lo559v.apps.googleusercontent.com';
 class GoogleBtn extends Component {
@@ -48,17 +45,22 @@ class GoogleBtn extends Component {
     return (
     <div>
       { this.state.isLogined ?
-        <Redirect to="/MyProfile" className="leftButton">Login Successful</Redirect>
-        : <GoogleLogin
+        <GoogleLogout
           clientId={ CLIENT_ID }
-          buttonText='Login with Google'
+          buttonText='Logout'
+          onLogoutSuccess={ this.logout }
+          onFailure={ this.handleLogoutFailure }
+        >
+        </GoogleLogout>: <GoogleLogin
+          clientId={ CLIENT_ID }
+          buttonText='Login'
           onSuccess={ this.login }
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
         />
       }
-      {/* { this.state.accessToken ? <Link to="/GetStarted" className="leftButton">Login Successful</Link> : null } */}
+      { this.state.accessToken ? <h5>Your Access Token: <br/><br/> { this.state.accessToken }</h5> : null }
 
     </div>
     )
