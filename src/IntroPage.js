@@ -21,7 +21,7 @@ class IntroPage extends Component {
                             ---------------------------------------------------------------
                             ---------------------------------------------------------------/</p>
                         <Link to="/GetStarted">
-                            <button>Get Started</button>
+                            <button className="getstartedButton">Get Started</button>
                         </Link>
                     </div>
                     <div className="rightsvg">

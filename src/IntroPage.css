@@ -14,13 +14,13 @@
     flex-direction: column;
     height: 60%;
     width: 50%;
-    margin-left: 120px; 
+    margin-left: 90px; 
     margin-top: 50px;
 }
 .left h1{
-    font-weight: bolder;
+    font-weight: 800;
     font-family: 'Montserrat', sans-serif;
-    font-size: 55px;
+    font-size: 4.5rem;
     color: #1B262C;
 }
 .left p{
@@ -29,16 +29,16 @@
 }
 .left button{
     background: #32E0C4;
-    height:45px;
+    /* height:45px;
     width: 220px;
     left: 98px;
-    top: 672px;
-    border-radius: 0px;
+    top: 672px; */
+    border-radius: 0.75px;
     font-family: 'Montserrat', sans-serif;
     border: none;
     border-radius: 2px;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 22.5px;
     color: #3F3D56;
     margin-top: 30px;
     cursor: pointer;
@@ -49,4 +49,9 @@
 }
 .rightsvg img{
     height: 80vh;
+}
+
+.getstartedButton:hover{
+    letter-spacing: -0.5px;
+    background-color: #12ecc8;
 }
