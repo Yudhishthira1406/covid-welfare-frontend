@@ -42,7 +42,6 @@
     color: #3F3D56;
     margin-top: 30px;
     cursor: pointer;
-    box-shadow: 2.5px 2.5px 10px #12ecc8;
 }
 .rightsvg{
     /* border: 1px solid black; */
@@ -54,5 +53,6 @@
 
 .getstartedButton:hover{
     letter-spacing: -0.5px;
-    background-color: #12ecc8;
+    /* background-color: #12ecc8; */
+    box-shadow: 2.5px 2.5px 10px #12ecc8;
 }

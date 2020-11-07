@@ -13,7 +13,7 @@
     height: 100vh;
     width: 100%;
     background-color: #212121;
-    border: 1px black solid;
+    /* border: 1px black solid; */
 }
 
 .nav-button{
@@ -24,16 +24,40 @@
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    line-height: 58 px;
+    /* line-height: 58px; */
     border: none;
     border-radius: 0px;
     background-color: #212121;
     outline: none;
+    transition: .5s;
+}
+
+.nav-button-logout{
+    margin-left: 12.5%;
+    margin-top: 80%;
+    color: white;
+    width: 75%;
+    height: 5%;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    /* line-height: 8px; */
+    border: none;
+    border-radius: 0px;
+    background-color: #df0e0e;
+    outline: none;
+    transition: .35s;
 }
 .nav-button:hover, .nav-button:focus {
     background-color: #32E0C4;
     color: #212121;
+    letter-spacing: -0.55px;
     cursor: pointer;
+}
+
+.nav-button-logout:hover{
+    box-shadow: 3.5px 3.5px 10px #f50808;
 }
 
 .one{

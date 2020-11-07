@@ -19,7 +19,7 @@ class GetStarted extends Component {
             User:{
                 userName:"",emailId:"",password:"",password2:""
             },
-            Username:"",pass:""
+            Username:"",pass:"",loginError:""
         }
         //this.handleSubmit=this.handleSubmit.bind(this);
         this.handleSignUp=this.handleSignUp.bind(this);
@@ -110,6 +110,10 @@ class GetStarted extends Component {
             this.props.history.push(`/MyProfile/${localStorage.getItem('username')}`);
         })
         .catch(error=>{
+            // this.state({
+            //     loginError: "Incorrect Username or Password. Please Try Again....",
+            // })
+            alert("Incorrect Username or Password. Please Try Again....");
             console.log(error);
         })
         
@@ -140,6 +144,7 @@ class GetStarted extends Component {
                             <input className="inputs" type="text" value={this.state.Username} onChange={this.handleLoginchange} /><br />
                             <label>Password</label><br />
                             <input className="inputs" type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
+                            <h4>{this.state.loginError}</h4>
                         </form>
                         <button onClick={this.handleLogin} className="b3">LOG IN</button>
                         

@@ -54,10 +54,10 @@ class MyProfile extends Component {
                     </div>
                     <div className="MyProfile-center">
                         <div className="MyProfile-picture">
-                            {localStorage.getItem('username')[0]}{localStorage.getItem('username')[1]}
+                            {localStorage.getItem('username')[0].toUpperCase()}
                         </div>
                         <div className="MyProfile-details">
-                            <p>Name:<br />{localStorage.getItem('username')}<br />contact number:<br />{this.state.User.contact}<br />Blood Group:<br />{this.state.User.blood_group}<br />Address:<br />{this.state.User.address}<br />Occupation:<br />{this.state.User.occupation}<br /></p>
+                            <p><h1>Name:</h1><br />{localStorage.getItem('username')}<br /><h1>contact number:</h1><br />{this.state.User.contact}<br /><h1>Blood Group:</h1><br />{this.state.User.blood_group}<br /><h1>Address:</h1><br />{this.state.User.address}<br /><h1>Occupation:</h1><br />{this.state.User.occupation}<br /></p>
                             <button className="MyProfile-button" onClick={this.handleEdit}>
                                 Edit
                             </button>
