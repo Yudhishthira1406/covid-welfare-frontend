@@ -45,9 +45,10 @@ class Seek extends Component {
                         <Navbar />
                     </div>
                     <div className="Seek-center">
+                    <h2>Providers in the HOUSE....</h2>
                         {this.state.Users.map(User =>(
-                            <div>
-                                {User.username}<br />
+                            <div className="seek-users">
+                                {User.username[0].toUpperCase()+User.username.slice(1)}<br />
                             </div>
                         ))}
                     </div>
