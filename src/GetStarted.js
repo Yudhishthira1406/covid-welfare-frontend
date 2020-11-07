@@ -120,16 +120,16 @@ class GetStarted extends Component {
             <div>
                 <div className="container">
                     <div className="signup">
-                        <h1>SIGN UP</h1>
+                        <h1>JOIN US</h1>
                         <form onSubmit={this.handleSignUp}>
                             <label>Username</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} required/><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} required/><br />
                             <label>Email id</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} required/><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} required/><br />
                             <label>Password</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} required/><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} required/><br />
                             <label>Confirm password</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} required/><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} required/><br />
                         </form>
                         <button onClick={this.handleSignUp} className="b1">SIGN UP</button>
                     </div>
@@ -137,9 +137,9 @@ class GetStarted extends Component {
                         <h1>LOG IN</h1>
                         <form>
                             <label>Username</label><br />
-                            <input type="text" value={this.state.Username} onChange={this.handleLoginchange} /><br />
+                            <input className="inputs" type="text" value={this.state.Username} onChange={this.handleLoginchange} /><br />
                             <label>Password</label><br />
-                            <input type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
+                            <input className="inputs" type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
                         </form>
                         <button onClick={this.handleLogin} className="b3">LOG IN</button>
                         

@@ -42,6 +42,7 @@
     color: #3F3D56;
     margin-top: 30px;
     cursor: pointer;
+    box-shadow: 2.5px 2.5px 10px #12ecc8;
 }
 .rightsvg{
     /* border: 1px solid black; */
