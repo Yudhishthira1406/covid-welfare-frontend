@@ -75,20 +75,27 @@ class GetStarted extends Component {
     }
     handleSignUp(){
         console.log(this.state.User);
-        axios.post('http://127.0.0.1:8000/api/user/register/',{
-            username: this.state.User.userName,
-            email: this.state.User.emailId,
-            password: this.state.User.password,
-            password2: this.state.User.password2,
-        })
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-        this.mainInput.value="";
-        alert("Registration completd please log in now");
+        if(this.state.User.userName!="" && this.state.User.emailId!="" && this.state.User.password!="" && this.state.User.password2!=""){
+            if(this.state.User.password===this.state.User.password2){
+                axios.post('http://127.0.0.1:8000/api/user/register/',{
+                username: this.state.User.userName,
+                email: this.state.User.emailId,
+                password: this.state.User.password,
+                password2: this.state.User.password2,
+                })
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+                this.mainInput.value="";
+                alert("Registration completd please log in now");
+            }
+            else{
+                alert("Passwords do not match");
+            }            
+        }
         
     }
     handleLogin(){
@@ -116,13 +123,13 @@ class GetStarted extends Component {
                         <h1>SIGN UP</h1>
                         <form onSubmit={this.handleSignUp}>
                             <label>Username</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} required/><br />
                             <label>Email id</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} required/><br />
                             <label>Password</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} required/><br />
                             <label>Confirm password</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} /><br />
+                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} required/><br />
                         </form>
                         <button onClick={this.handleSignUp} className="b1">SIGN UP</button>
                     </div>
