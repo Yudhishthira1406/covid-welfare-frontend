@@ -93,3 +93,8 @@ input {
 .inputs{
     margin: 10px 0;
 }
+
+.login-error{
+    color: rgb(204, 5, 5);
+    font-size: 12px;
+}

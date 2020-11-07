@@ -79,7 +79,7 @@ class MyProfile extends Component {
                     </div>
                     <div className="MyProfile-right">
                         <div className="MyProfile-motivation">
-                        <button className="MyProfile-button" onClick={this.handleEdit}>
+                        <button className="MyProfile-motivation-button" onClick={this.handleEdit}>
                                 Edit
                          </button>
                             {/* <p>

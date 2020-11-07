@@ -110,10 +110,15 @@ class GetStarted extends Component {
             this.props.history.push(`/MyProfile/${localStorage.getItem('username')}`);
         })
         .catch(error=>{
-            // this.state({
-            //     loginError: "Incorrect Username or Password. Please Try Again....",
+            // this.setState((errormsg)=>{
+            //     let newstate = errormsg;
+            //     newstate.loginError = "Incorrect Username or Password. Please Try Again....";
+            //     return newstate;
             // })
-            alert("Incorrect Username or Password. Please Try Again....");
+            this.setState({
+                loginError: "Incorrect Username or Password. Please Try Again....",
+            });
+            // alert("Incorrect Username or Password. Please Try Again....");
             console.log(error);
         })
         
@@ -144,7 +149,7 @@ class GetStarted extends Component {
                             <input className="inputs" type="text" value={this.state.Username} onChange={this.handleLoginchange} /><br />
                             <label>Password</label><br />
                             <input className="inputs" type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
-                            <h4>{this.state.loginError}</h4>
+                            <h4 className="login-error">{this.state.loginError}</h4>
                         </form>
                         <button onClick={this.handleLogin} className="b3">LOG IN</button>
                         
