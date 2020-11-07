@@ -44,6 +44,11 @@ class MyProfile extends Component {
     handleEdit(){
         this.props.history.push(`/EditProfile/${localStorage.getItem('username')}`)
     }
+
+    authors = ["Marie Curie","Anonymous","Swami Vivekanand","Thich Nhat Hanh","Etienne de Grellet"]
+    quotes = ["Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.   -Marie Curie","Those who have an enthusiasm and interest in life, stay young - no matter how 'old' they get. It is these people who often stay the healthiest and live the longest too.  -Anonymous",
+                "The cheerful mind perseveres, and the strong mind hews its way through a thousand difficulties.....  -Swami Vivekanand","Keeping your body healthy is an expression of gratitude to the whole cosmos- the trees, the clouds, everything.  -Thich Nhat Hanh",
+                "I shall pass this way but once; any good that I can do or any kindness I can show to any human being; let me do it now...  -Etienne de Grellet"]
     render(){
         return (
             
@@ -56,11 +61,17 @@ class MyProfile extends Component {
                         <div className="MyProfile-picture">
                             {localStorage.getItem('username')[0].toUpperCase()}
                         </div>
+                        
                         <div className="MyProfile-details">
-                            <p><h1>Name:</h1><br />{localStorage.getItem('username')}<br /><h1>contact number:</h1><br />{this.state.User.contact}<br /><h1>Blood Group:</h1><br />{this.state.User.blood_group}<br /><h1>Address:</h1><br />{this.state.User.address}<br /><h1>Occupation:</h1><br />{this.state.User.occupation}<br /></p>
-                            <button className="MyProfile-button" onClick={this.handleEdit}>
+                            <p className="attribute-para"><span className="profile-atrribute">Name:  </span><br/>{localStorage.getItem('username')[0].toUpperCase()+localStorage.getItem('username').slice(1)}</p>
+                            <p className="attribute-para"><span className="profile-atrribute">Contact:  </span><br/>{this.state.User.contact}</p>
+                            <p className="attribute-para"><span className="profile-atrribute">Blood Group:  </span><br/>{this.state.User.blood_group}</p>
+                            <p className="attribute-para"><span className="profile-atrribute">Address:  </span><br/>{this.state.User.address}</p>
+                            <p className="attribute-para"><span className="profile-atrribute">Occupation:  </span><br/>{this.state.User.occupation}</p>    
+                            {/* <br></br> */}
+                            {/* <button className="MyProfile-button" onClick={this.handleEdit}>
                                 Edit
-                            </button>
+                            </button> */}
                         </div>
                         <div>
                             
@@ -68,8 +79,14 @@ class MyProfile extends Component {
                     </div>
                     <div className="MyProfile-right">
                         <div className="MyProfile-motivation">
-                            <p>"----------------------------------------------------------------------------------------------High Level Motivation------------------------------------------------------------------------------------"</p>
+                        <button className="MyProfile-button" onClick={this.handleEdit}>
+                                Edit
+                         </button>
+                            {/* <p>
+                            </p> */}
+                            <p className="motivational-para">{this.quotes[Math.floor(Math.random()*4)]}</p>
                         </div>
+                        
                     </div>
                 </div>
             </div>
