@@ -85,12 +85,16 @@ class GetStarted extends Component {
                 })
                 .then(response => {
                     console.log(response);
+                    localStorage.setItem('token',response.data.token);
+                    localStorage.setItem('username',this.state.User.userName);
+                    this.props.history.push(`/EditProfile/${this.state.User.userName}`)
                 })
                 .catch(error => {
                     console.log(error);
                 })
-                this.mainInput.value="";
-                alert("Registration completd please log in now");
+                //this.mainInput.value="";
+                //alert("Registration completd please log in now");
+                
             }
             else{
                 alert("Passwords do not match");

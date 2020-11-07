@@ -13,7 +13,9 @@ import axios from 'axios'
 class Seek extends Component {
     constructor(props) {
         super(props);
-        this.state = { Users:[] }
+        this.state = { Users:[], seektext:"" }
+        this.handleSeekChange=this.handleSeekChange.bind(this);
+        this.handleConfirm=this.handleConfirm.bind(this);
     }
     componentDidMount(){
         if(localStorage.getItem('username')===null){
@@ -37,6 +39,26 @@ class Seek extends Component {
         })
         }
     }
+    handleSeekChange(e){
+        this.setState({
+            seektext: e.target.value,
+        })
+    }
+    handleConfirm(e){
+        axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seek/`,{
+            seek_text: this.state.seektext,
+        },{
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
     render(){ 
         return (
             <div className="Seek-prnt">
@@ -45,12 +67,9 @@ class Seek extends Component {
                         <Navbar />
                     </div>
                     <div className="Seek-center">
-                    <h2>Providers in the HOUSE...</h2> 
-                        {this.state.Users.map(User =>(
-                            <div className="seek-users">
-                                {User.username[0].toUpperCase()+User.username.slice(1)}<br />
-                            </div>
-                        ))}
+                    <h2>How can we help you?</h2> 
+                    <input type="text" value={this.state.seektext} onChange={this.handleSeekChange}></input>
+                    <button className="seek-button" onClick={this.handleConfirm}>Confirm</button>
                     </div>
                     <div className="Seek-right">
                         <Smap />

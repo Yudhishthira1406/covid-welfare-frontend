@@ -24,9 +24,11 @@
 .Seek-center{
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 100vh;
     width: 40%;
-    margin-top: 100px;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
     /* border: 1px black solid; */
 }
 
@@ -49,4 +51,8 @@
     padding: 10px 0 10px 30px;
     border-radius: 10px;
     box-shadow: 2px 2px 20px #474747;
+}
+input{
+    height: 70%;
+    background-color: #D7D3D3;
 }
