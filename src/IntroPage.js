@@ -24,7 +24,7 @@ class IntroPage extends Component {
                             <button>Get Started</button>
                         </Link>
                     </div>
-                    <div className="right">
+                    <div className="rightsvg">
                         <img src={doctors} />
                     </div>
                 </div>

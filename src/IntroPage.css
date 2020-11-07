@@ -1,18 +1,21 @@
-  .container{
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.container{
     display:flex;
     flex-direction: row;
     align-items: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 100vh;
+    font-family: 'Montserrat', sans-serif;
 }
 .left{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     align-items: left;
     flex-direction: column;
     height: 60%;
     width: 50%;
-    padding-left: 50px; 
+    margin-left: 120px; 
+    margin-top: 50px;
 }
 .left h1{
     font-weight: bolder;
@@ -40,10 +43,10 @@
     margin-top: 30px;
     cursor: pointer;
 }
-.right{
-    border: 1px solid black;
+.rightsvg{
+    /* border: 1px solid black; */
     width: 60%;
 }
-.right img{
-    height: 450px;
+.rightsvg img{
+    height: 80vh;
 }
