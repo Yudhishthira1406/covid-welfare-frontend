@@ -53,6 +53,7 @@ class Seek extends Component {
             }
         })
         .then(response => {
+            alert("successful");
             console.log(response);
         })
         .catch(error => {
@@ -68,7 +69,7 @@ class Seek extends Component {
                     </div>
                     <div className="Seek-center">
                     <h2>How can we help you?</h2> 
-                    <input type="text" value={this.state.seektext} onChange={this.handleSeekChange}></input>
+                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "500px"}} rows="30"></textarea>
                     <button className="seek-button" onClick={this.handleConfirm}>Confirm</button>
                     </div>
                     <div className="Seek-right">
