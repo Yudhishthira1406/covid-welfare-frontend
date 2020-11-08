@@ -74,11 +74,6 @@ h1 {
     font-size: 55px;
     margin-top: -10px;
 }
-input {
-    width: 350px;
-    margin-bottom: 9px;
-    border: 1px black solid;
-}
 
 .b1:hover{
     letter-spacing: -0.5px;
@@ -91,6 +86,10 @@ input {
     box-shadow: 1.5px 2.5px 10px #0c989c;
 }
 .inputs{
+    width: 350px;
+    height: 2vh;
+    margin-bottom: 9px;
+    border: 1px black solid;
     margin: 10px 0;
 }
 
