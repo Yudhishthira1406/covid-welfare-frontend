@@ -2,17 +2,8 @@
 *{
     font-family: 'Montserrat', sans-serif;
 }
-.Smap-cntr{
+.Pmap-cntr{
     width: 38vw;
     height: 100%;
     background-color: blue;
-}
-
-.invisible{
-    position: absolute;
-    z-index: -1;
-    height: 100vh;
-    color: white;
-    background-color: rgba(0,0,0,.5);
-    width: 38vw;
 }

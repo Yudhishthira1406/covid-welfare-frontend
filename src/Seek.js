@@ -9,10 +9,13 @@ import {
   Redirect
 } from "react-router-dom";
 import Smap from './Smap';
+import axios from 'axios'
 class Seek extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { Users:[], seektext:"" }
+        this.handleSeekChange=this.handleSeekChange.bind(this);
+        this.handleConfirm=this.handleConfirm.bind(this);
     }
     componentDidMount(){
         if(localStorage.getItem('username')===null){
@@ -20,8 +23,42 @@ class Seek extends Component {
             this.props.history.push("/GetStarted");
         }
         else{
-            
+            axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })      
+        .then(response => {
+            this.setState({
+                Users:response.data.data,
+            })
+            console.log(this.state.Users);
+        })
+        .catch(error => {
+            console.log(error);
+        })
         }
+    }
+    handleSeekChange(e){
+        this.setState({
+            seektext: e.target.value,
+        })
+    }
+    handleConfirm(e){
+        axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seek/`,{
+            seek_text: this.state.seektext,
+        },{
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => {
+            alert("successful");
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
     render(){ 
         return (
@@ -31,7 +68,9 @@ class Seek extends Component {
                         <Navbar />
                     </div>
                     <div className="Seek-center">
-                        
+                    <h2>How can we help you?</h2> 
+                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "500px"}} rows="30"></textarea>
+                    <button className="seek-button" onClick={this.handleConfirm}>Confirm</button>
                     </div>
                     <div className="Seek-right">
                         <Smap />

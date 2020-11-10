@@ -2,34 +2,63 @@
     height: 100vh;
     width: 100%;
 }*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*{
+    font-family: 'Montserrat', sans-serif;
+}
 .Seek-cntr{
     display: flex;
     flex-direction: row;
     height: 100vh;
     width: 100%;
-    border: 1px black solid;
+    /* border: 1px black solid; */
 }
 .Seek-left{
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 25%;
-    border: 1px black solid;
+    width: 20%;
+    /* border: 1px black solid; */
     background-color: #212121;
 }
+
 .Seek-center{
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 40%;
-    border: 1px black solid;
+    /* margin-top: 5px; */
+    justify-content: center;
+    align-items: center;
+    /* border: 1px black solid; */
+}
+
+.Seek-center h2{
+    margin: 20px 25px;
 }
 .Seek-right{
     display: flex;
     flex-direction: row;
     height: 100vh;
     width: 40%;
-    border: 1px black solid;
+    /* border: 1px black solid; */
     overflow: hidden;
     
+}
+
+/* .seek-users{
+    background-color: ghostwhite;
+    margin: 15px 25px;
+    padding: 10px 0 10px 30px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px #474747;
+} */
+
+input{
+    height: 70%;
+    background-color: #D7D3D3;
+}
+
+.class-checkbox{
+    font-size: 30px;
 }

@@ -8,7 +8,7 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import Smap from './Smap';
+import Pmap from './Pmap';
 class Provide extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +34,7 @@ class Provide extends Component {
                         
                     </div>
                     <div className="Provide-right">
-                        <Smap />
+                        <Pmap />
                     </div>
                 </div>
             </div>
