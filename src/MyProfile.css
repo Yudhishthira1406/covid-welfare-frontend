@@ -47,8 +47,8 @@
     justify-content: center;
     align-items: center;
     /* border: 1px black solid; */
-    height: 30%;
-    width: 35%;
+    width: 11vw;
+    height: 11vw;
     border-radius: 50%;
     margin-top: 5%;
     margin-left: 25px;
@@ -75,8 +75,8 @@
 }
 
 .MyProfile-motivation button{
-    margin-top: 15vh;
-    margin-bottom: 230px;
+    margin-top: 10vh;
+    //margin-bottom: 230px;
 }
 
 .MyProfile-button{
@@ -110,4 +110,12 @@
 
 .motivational-para{
     font-size: 1.5rem;
+}
+.picture-editbutton{
+    display: flex;
+    flex-direction: row;
+    justify-content: first baseline;
+}
+.useredit{
+    cursor: pointer;
 }

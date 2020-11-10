@@ -16,7 +16,7 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            User:"",username:"",contactnum:"",bloodgroup:"",occupation:"",address:"",lat:"",lon:"",provide:false
+            User:"",username:"",contactnum:"",bloodgroup:"",occupation:"",address:"",lat:"",lon:"",provide:true
         }
         this.handleAdChange=this.handleAdChange.bind(this);
         this.handleUsnmChange=this.handleUsnmChange.bind(this);
@@ -50,11 +50,11 @@ class EditProfile extends Component {
         }
       }
       getCoordinates=(position)=>{
-        console.log(position);
         this.setState({
           lat:position.coords.latitude,
           lon:position.coords.longitude
         })
+        console.log(this.state.lat,this.state.lon);
       }
     handleUsnmChange=(e)=>{
         this.setState({
@@ -91,8 +91,8 @@ class EditProfile extends Component {
             contact:  (this.state.contactnum!="") ? this.state.contactnum : this.state.User.contact,
             occupation: (this.state.occupation!="") ? this.state.occupation :this.state.User.occupation,
             address: (this.state.address!="") ? this.state.address : this.state.User.address,
-            lat: (this.state.lat!="") ? this.state.lat : this.state.Users.lat,
-            lon: (this.state.lon!="") ? this.state.lon : this.state.Users.lon,
+            lat: this.state.lat ,
+            lon: this.state.lon ,
             blood_group: (this.state.bloodgroup!="") ? this.state.bloodgroup : this.state.User.blood_group,
             provide: this.state.provide,
             username: localStorage.getItem('username'),
@@ -115,6 +115,7 @@ class EditProfile extends Component {
             
             <div className="EditProfile-container">
                 <form onSubmit={this.handleSubmit} className="EditProfile-form">
+                    
                     <label>Contact number</label><br />
                     <input type="text" value={this.state.contactnum} onChange={this.handleCnChange}  required/><br />
                     <label>Blood Group</label><br />
@@ -123,8 +124,6 @@ class EditProfile extends Component {
                     <input type="text" value={this.state.address} onChange={this.handleAdChange}  required/><br />
                     <label>Occupation</label><br />
                     <input type="text" value={this.state.occupation} onChange={this.handleOcChange} required /><br />
-                    <label>Provide</label><br />
-                    <input type="checkbox" className="checkbox-class" checked={this.state.provide} onChange={this.handlePrChange}/><br />
                     <button onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>

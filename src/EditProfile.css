@@ -9,9 +9,7 @@
 .EditProfile-form{
     color: white;
 }
-input{
-    border: ;
-}
+
 button{
     background: #32E0C4;
     height:45px;
@@ -27,4 +25,8 @@ button{
     color: #3F3D56;
     margin-top:20px;
     cursor: pointer;
+}
+.checkbox-class{
+    size: 2px;
+    background-color: white;
 }

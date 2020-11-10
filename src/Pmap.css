@@ -3,7 +3,34 @@
     font-family: 'Montserrat', sans-serif;
 }
 .Pmap-cntr{
-    width: 38vw;
+    width: 40vw;
     height: 100%;
     background-color: blue;
+}
+
+.invisible{
+    position: absolute;
+    z-index: -1;
+    height: 100vh;
+    color: white;
+    background-color: rgba(0,0,0,0.7);
+    width: 40vw;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+}
+.MyProfile-details{
+
+}
+.profile-atrribute{
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.attribute-para{
+    color: #32E0C4;
+    padding: 0 10px;
+    font-size: 20px;
 }

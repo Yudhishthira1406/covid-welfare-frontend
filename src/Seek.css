@@ -34,7 +34,7 @@
 }
 
 .Seek-center h2{
-    margin: 20px 25px;
+    margin: 20px 20px;
 }
 .Seek-right{
     display: flex;
@@ -54,10 +54,7 @@
     box-shadow: 2px 2px 20px #474747;
 } */
 
-input{
-    height: 70%;
-    background-color: #D7D3D3;
-}
+
 
 .class-checkbox{
     font-size: 30px;

@@ -8,7 +8,7 @@ export class Smap extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      my_lat: 1,my_lon: 1,Users:[],userClicked:{},
+      mylat: 1,mylon: 1,Users:[],userClicked:{},
     };
     this.handleMarkerClick=this.handleMarkerClick.bind(this);
   }
@@ -77,7 +77,7 @@ export class Smap extends Component{
               userClicked: response.data,
               
           })
-          console.log(this.state.mylat + " " + this.state.mylon);
+          console.log(this.state.userClicked);
       })
       .catch(error => {
           console.log(error);
@@ -91,20 +91,26 @@ export class Smap extends Component{
     })
     document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
   }
-  render() {
+  render(){
       const containerStyle = {
           position: 'relative',  
           width: '100%',
-          height: '100%'
+          height: '100%',
       }
-      const lat1=this.state.my_lat;
-      const lon1=this.state.my_lon;
+      const lat1=this.state.mylat;
+      const lon1=this.state.mylon;
       
       return (
       <div className="Smap-cntr">
         <h1 className="invisible">
-          {this.state.userClicked.username}
-          <button onClick={this.handleCloseButton}>CLOSE</button>
+          <div className="MyProfile-details">
+            <p className="attribute-para"><span className="profile-atrribute">Name:  </span><br/>{this.state.userClicked.username}</p>
+            <p className="attribute-para"><span className="profile-atrribute">Contact:  </span><br/>{this.state.userClicked.contact}</p>
+            <p className="attribute-para"><span className="profile-atrribute">Blood Group:  </span><br/>{this.state.userClicked.blood_group}</p>
+            <p className="attribute-para"><span className="profile-atrribute">Address:  </span><br/>{this.state.userClicked.address}</p>
+            <p className="attribute-para"><span className="profile-atrribute">Occupation:  </span><br/>{this.state.userClicked.occupation}</p>
+            <button onClick={this.handleCloseButton}>CLOSE</button>
+          </div>
         </h1>
         <Map google={this.props.google}
         containerStyle={containerStyle}
@@ -112,9 +118,9 @@ export class Smap extends Component{
           lat: lat1,
           lng: lon1
         }}
-        zoom={11}
-        zoomControl={false}
-        gestureHandling= "none"
+        zoom={15}
+        //zoomControl={false}
+        //gestureHandling= "none"
         onClick={this.onMapClicked}className="Smap-map" >
           <Marker
               title={localStorage.getItem('username')}
