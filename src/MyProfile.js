@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import './MyProfile.css';
 import Navbar from './Navbar'
 import { withRouter } from "react-router";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +12,7 @@ import {
   useParams
 } from "react-router-dom";
 import axios from 'axios';
+
 class MyProfile extends Component {
     constructor(props){
         super(props);
@@ -58,10 +60,12 @@ class MyProfile extends Component {
                         <Navbar />
                     </div>
                     <div className="MyProfile-center">
-                        <div className="MyProfile-picture">
-                            {localStorage.getItem('username')[0].toUpperCase()}
+                        <div className="picture-editbutton">
+                            <div className="MyProfile-picture">
+                                {localStorage.getItem('username')[0].toUpperCase()}
+                            </div>
+                            <FontAwesomeIcon icon="user-edit" onClick={this.handleEdit} className="useredit" />
                         </div>
-                        
                         <div className="MyProfile-details">
                             <p className="attribute-para"><span className="profile-atrribute">Name:  </span><br/>{localStorage.getItem('username')[0].toUpperCase()+localStorage.getItem('username').slice(1)}</p>
                             <p className="attribute-para"><span className="profile-atrribute">Contact:  </span><br/>{this.state.User.contact}</p>
