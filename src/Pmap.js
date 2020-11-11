@@ -8,13 +8,12 @@ export class Pmap extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      mylat: 1,mylon: 1,Users:[],userClicked:[],seektext:"",dist:""
+      mylat: 1,mylon: 1,Users:[]
     };
-    this.handleMarkerClick=this.handleMarkerClick.bind(this);
   }
   componentDidMount(){
     // this.getCoords();
-        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
+        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/${this.props.type}list`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
@@ -47,68 +46,6 @@ export class Pmap extends Component{
         })
         
   }
-
-  // calcDistance=(lat1,lon1,lat2,lon2)=>{
-  //   const R = 6371; // metres
-  //   const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-  //   const φ2 = lat2 * Math.PI/180;
-  //   const Δφ = (lat2-lat1) * Math.PI/180;
-  //   const Δλ = (lon2-lon1) * Math.PI/180;
-  //   const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-  //     Math.cos(φ1) * Math.cos(φ2) *
-  //     Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  //   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  //   const d = R * c; // in metres
-  //   //console.log(d);
-  //   return d/1000;
-  // }
-
-  handleMarkerClick = (username,dist)=>{
-    // alert("Marker Clicked" + username);
-    this.setState({
-      dist:dist,
-    })
-    axios.get(`http://127.0.0.1:8000/api/${username}/`,{
-            headers: {
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-      })      
-      .then(response => {
-          this.setState({
-              // Users:response.data.data,
-              userClicked: response.data,
-              
-          })
-          console.log(this.state.userClicked);
-      })
-      .catch(error => {
-          console.log(error);
-      })
-      axios.get(`http://127.0.0.1:8000/api/${username}/seek/`,{
-            headers: {
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-      })      
-      .then(response => {
-          this.setState({
-              // Users:response.data.data,
-              seektext:response.data.seek_text,
-              
-          })
-          console.log(response);
-      })
-      .catch(error => {
-          console.log(error);
-      })
-      document.getElementsByClassName('invisible')[0].style.zIndex = "1";
-  }
-
-  handleCloseButton = ()=>{
-    this.setState({
-      userclicked: {},
-    })
-    document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
-  }
   render(){
       const containerStyle = {
           position: 'relative',  
@@ -122,15 +59,15 @@ export class Pmap extends Component{
       <div className="Pmap-cntr">
         <h1 className="invisible">
           <div className="MyProfile-details">
-            <p className="attribute-para"><span className="profile-atrribute">Name:  </span><br/>{this.state.userClicked.username}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Contact:  </span><br/>{this.state.userClicked.contact}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Distance from you:  </span><br/>{this.state.dist} Kms</p>
-            <p className="attribute-para"><span className="profile-atrribute">Blood Group:  </span><br/>{this.state.userClicked.blood_group}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Address:  </span><br/>{this.state.userClicked.address}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Occupation:  </span><br/>{this.state.userClicked.occupation}</p>
-            <p className="attribute-para"><span className="profile-atrribute">In need of:  </span><br/>{this.state.seektext}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Name:  </span><br/>{this.props.userClicked.username}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Contact:  </span><br/>{this.props.userClicked.contact}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Distance from you:  </span><br/>{this.props.dist} Kms</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Blood Group:  </span><br/>{this.props.userClicked.blood_group}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Address:  </span><br/>{this.props.userClicked.address}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Occupation:  </span><br/>{this.props.userClicked.occupation}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">In need of:  </span><br/>{this.props.seektext}</p>
 
-            <button onClick={this.handleCloseButton}>CLOSE</button>
+            <button onClick={this.props.handleCloseButton}>CLOSE</button>
           </div>
         </h1>
         <Map google={this.props.google}
@@ -147,11 +84,15 @@ export class Pmap extends Component{
               title={localStorage.getItem('username')}
               name={'SOMA'}
               position={{lat:lat1,
-                lng: lon1}} /> 
+                lng: lon1}} 
+                icon={{
+                  url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/585px-Map_marker.svg.png",
+                  scaledSize: new this.props.google.maps.Size(35,50),
+                }} /> 
           {this.state.Users.map(User => (
             <Marker
             onClick={()=>{
-              this.handleMarkerClick(User.username,User.dist);
+              this.props.handleMarkerClick(User.username,User.dist);
             }}
             title={`${User.username} | ${User.dist} Kms `}
             name={User.username}

@@ -5,7 +5,7 @@ import GetStarted from './GetStarted'
 import IntroPage from './IntroPage'
 import MyProfile from './MyProfile'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserEdit,faToggleOff,faToggleOn  } from '@fortawesome/free-solid-svg-icons'
+import { faUserEdit,faToggleOff,faToggleOn,faMapMarkedAlt  } from '@fortawesome/free-solid-svg-icons'
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,7 +19,7 @@ import { Smap } from './Smap';
 import Provide from './Provide';
 import { UserProvider } from './UserContext';
 import EditProfile from './EditProfile';
-library.add(faUserEdit,faToggleOff,faToggleOn)
+library.add(faUserEdit,faToggleOff,faToggleOn,faMapMarkedAlt)
 class App extends Component { 
   constructor(props) {
     super(props);

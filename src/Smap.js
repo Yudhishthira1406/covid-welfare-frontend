@@ -3,18 +3,18 @@ import { render } from "react-dom"
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import './Smap.css'
 import axios from 'axios';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export class Smap extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      mylat: 1,mylon: 1,Users:[],userClicked:{},
+      mylat: 1,mylon: 1,Users:[],userClicked:{},dist:""
     };
     this.handleMarkerClick=this.handleMarkerClick.bind(this);
   }
   componentDidMount(){
     // this.getCoords();
-        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
+        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/${this.props.type}list`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
@@ -63,9 +63,11 @@ export class Smap extends Component{
   //   return d/1000;
   // }
 
-  handleMarkerClick = (username)=>{
+  handleMarkerClick = (username,dist)=>{
     // alert("Marker Clicked" + username);
-    
+    this.setState({
+      dist:dist,
+    })
     axios.get(`http://127.0.0.1:8000/api/${username}/`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
@@ -104,11 +106,12 @@ export class Smap extends Component{
       <div className="Smap-cntr">
         <h1 className="invisible">
           <div className="MyProfile-details">
-            <p className="attribute-para"><span className="profile-atrribute">Name:  </span><br/>{this.state.userClicked.username}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Contact:  </span><br/>{this.state.userClicked.contact}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Blood Group:  </span><br/>{this.state.userClicked.blood_group}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Address:  </span><br/>{this.state.userClicked.address}</p>
-            <p className="attribute-para"><span className="profile-atrribute">Occupation:  </span><br/>{this.state.userClicked.occupation}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Name:  </span><br/>{this.state.userClicked.username}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Contact:  </span><br/>{this.state.userClicked.contact}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Blood Group:  </span><br/>{this.state.userClicked.blood_group}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Address:  </span><br/>{this.state.userClicked.address}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Occupation:  </span><br/>{this.state.userClicked.occupation}</p>
+            <p className="attribute-para-map"><span className="profile-atrribute-map">Distance form you:  </span><br/>{this.state.dist}</p>
             <button onClick={this.handleCloseButton}>CLOSE</button>
           </div>
         </h1>
@@ -126,11 +129,15 @@ export class Smap extends Component{
               title={localStorage.getItem('username')}
               name={'SOMA'}
               position={{lat:lat1,
-                lng: lon1}} /> 
+                lng: lon1}}
+                icon={{
+                  url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Map_marker.svg/585px-Map_marker.svg.png",
+                  scaledSize: new this.props.google.maps.Size(35,50),
+                }} /> 
           {this.state.Users.map(User => (
             <Marker
             onClick={()=>{
-              this.handleMarkerClick(User.username);
+              this.handleMarkerClick(User.username,User.dist);
             }}
             title={`${User.username} | ${User.dist} Kms `}
             name={User.username}

@@ -73,7 +73,7 @@ class Seek extends Component {
                     <button className="seek-button" onClick={this.handleConfirm}>Confirm</button>
                     </div>
                     <div className="Seek-right">
-                        <Smap />
+                        <Smap type={"seek"} />
                     </div>
                 </div>
             </div>

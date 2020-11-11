@@ -10,12 +10,16 @@ import {
   Redirect
 } from "react-router-dom";
 import Pmap from './Pmap';
+import Smap from './Smap';
 import axios from 'axios'
+import Seek from './Seek';
 class Provide extends Component {
     constructor(props) {
         super(props);
-        this.state = { User:[],provide:"",Seekers:[] }
+        this.state = { User:[],provide:"",Seekers:[],userClicked:[],dist:"",seektext:""}
         this.handleProvide=this.handleProvide.bind(this);
+        this.handleMarkerClick=this.handleMarkerClick.bind(this);
+        this.handleCloseButton=this.handleCloseButton.bind(this);
     }
     componentDidMount(){
         if(localStorage.getItem('username')===null){
@@ -38,7 +42,7 @@ class Provide extends Component {
             .catch(error => {
             console.log(error);
             })
-            axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
+            axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/providelist`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
@@ -47,6 +51,7 @@ class Provide extends Component {
             this.setState({
                 Seekers:response.data.data,
             })
+            console.log("hi");
             console.log(this.state.Seekers);
             })
             .catch(error => {
@@ -54,6 +59,51 @@ class Provide extends Component {
             })
         }
     }
+    handleMarkerClick = (username,dist)=>{
+        // alert("Marker Clicked" + username);
+        this.setState({
+          dist:dist,
+        })
+        axios.get(`http://127.0.0.1:8000/api/${username}/`,{
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+          })      
+          .then(response => {
+              this.setState({
+                  // Users:response.data.data,
+                  userClicked: response.data,
+                  
+              })
+              console.log(this.state.userClicked);
+          })
+          .catch(error => {
+              console.log(error);
+          })
+          axios.get(`http://127.0.0.1:8000/api/${username}/seek/`,{
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+          })      
+          .then(response => {
+              this.setState({
+                  // Users:response.data.data,
+                  seektext:response.data.seek_text,
+                  
+              })
+              console.log(response);
+          })
+          .catch(error => {
+              console.log(error);
+          })
+          document.getElementsByClassName('invisible')[0].style.zIndex = "1";
+      }
+      handleCloseButton = ()=>{
+        this.setState({
+          userclicked: {},
+        })
+        document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
+      }
     handleProvide(e){
         axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
             contact:  this.state.User.contact,
@@ -92,15 +142,17 @@ class Provide extends Component {
                             <input type="checkbox" checked={this.state.provide} onClick={this.handleProvide} /> 
                         </div>
                         <div>
+                            <h2>People in need</h2>
                             {this.state.Seekers.map(Seeker => (
-                                <div>
-                                    {Seeker.username}
+                                <div className="seekers" onClick={() => this.handleMarkerClick(Seeker.username,Seeker.dist)}>
+                                    Name: {Seeker.username}<br />
+                                    Distance: {Seeker.dist}<br /><br />
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className="Provide-right">
-                        <Pmap />
+                        <Pmap type={"provide"} handleCloseButton={this.handleCloseButton} handleMarkerClick={this.handleMarkerClick} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
                     </div>
                 </div>
             </div>

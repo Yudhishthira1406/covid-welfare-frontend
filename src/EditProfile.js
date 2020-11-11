@@ -16,7 +16,7 @@ class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            User:"",username:"",contactnum:"",bloodgroup:"",occupation:"",address:"",lat:"",lon:"",provide:true
+            User:"",username:"",contactnum:"",bloodgroup:"",occupation:"",address:"",lat:"",lon:"",changelocation:false
         }
         this.handleAdChange=this.handleAdChange.bind(this);
         this.handleUsnmChange=this.handleUsnmChange.bind(this);
@@ -86,13 +86,20 @@ class EditProfile extends Component {
             provide: e.target.checked,
         })
     }
+    handleLcChange=(e)=>{
+        this.setState({
+            changelocation:e.target.checked,
+            
+        })
+        console.log(e.target.checked);
+    }
     handleSubmit(){
         axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
             contact:  (this.state.contactnum!="") ? this.state.contactnum : this.state.User.contact,
             occupation: (this.state.occupation!="") ? this.state.occupation :this.state.User.occupation,
             address: (this.state.address!="") ? this.state.address : this.state.User.address,
-            lat: this.state.lat ,
-            lon: this.state.lon ,
+            lat: (this.state.changelocation)? this.state.lat:this.state.User.lat ,
+            lon: (this.state.changelocation)? this.state.lon:this.state.User.lon ,
             blood_group: (this.state.bloodgroup!="") ? this.state.bloodgroup : this.state.User.blood_group,
             provide: this.state.provide,
             username: localStorage.getItem('username'),
@@ -124,6 +131,8 @@ class EditProfile extends Component {
                     <input type="text" value={this.state.address} onChange={this.handleAdChange}  required/><br />
                     <label>Occupation</label><br />
                     <input type="text" value={this.state.occupation} onChange={this.handleOcChange} required /><br />
+                    <label>Set location to this location </label><br />
+                    <input type="checkbox" checked={this.state.changelocation} onChange={this.handleLcChange} /><br /> 
                     <button onClick={this.handleSubmit}>Submit</button>
                 </form>
             </div>

@@ -44,3 +44,6 @@
 input[type=checkbox]{
     zoom:1.5;
 }
+.seekers{
+    cursor: pointer;
+}
