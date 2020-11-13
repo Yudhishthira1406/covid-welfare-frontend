@@ -40,9 +40,14 @@ class Seek extends Component {
         }
     }
     handleSeekChange(e){
-        this.setState({
-            seektext: e.target.value,
-        })
+        if(e.target.value.length<=300){
+            this.setState({
+                seektext: e.target.value,
+            })
+        }
+        else{
+            alert("Limit Exceeded...");
+        }
     }
     handleConfirm(e){
         axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seek/`,{
@@ -69,7 +74,7 @@ class Seek extends Component {
                     </div>
                     <div className="Seek-center">
                     <h2>How can we help you?</h2> 
-                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "80%", height:"70%"}} ></textarea>
+                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "80%", height:"70%", fontSize: "27px"}} ></textarea>
                     <button className="seek-button" onClick={this.handleConfirm}>Confirm</button>
                     </div>
                     <div className="Seek-right">
