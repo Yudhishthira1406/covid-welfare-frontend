@@ -44,6 +44,11 @@
 input[type=checkbox]{
     zoom:1.5;
 }
+.peopleNeed{
+    margin: 10px 12.5px;
+    font-size: 40px;
+    color: darkslategray;
+}
 .seekList{
     overflow-y: scroll;
     max-height: 150px;
