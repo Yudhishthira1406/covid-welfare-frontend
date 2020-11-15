@@ -51,7 +51,7 @@
     height: 11vw;
     border-radius: 50%;
     margin-top: 5%;
-    margin-left: 25px;
+    margin-left: 40px;
     background-color: #212121;
     line-height: 27%;
     font-size: 80px;
@@ -117,4 +117,14 @@
 }
 .useredit{
     cursor: pointer;
+    position: absolute;
+    top: 10vh;
+    left: 57vw;
+    transform: scale(2,2);
+    transition: 0.3s;
+}
+
+.useredit:hover{
+    transition: 0.3s;
+    transform: scale(2.25,2.25);
 }

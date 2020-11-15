@@ -143,12 +143,14 @@ class Provide extends Component {
                         </div>
                         <div>
                             <h2>People in need</h2>
+                            <div className="seekList">
                             {this.state.Seekers.map(Seeker => (
                                 <div className="seekers" onClick={() => this.handleMarkerClick(Seeker.username,Seeker.dist)}>
-                                    Name: {Seeker.username}<br />
-                                    Distance: {Seeker.dist}<br /><br />
+                                    <strong>Name: </strong>{Seeker.username}<br />
+                                    <strong>Distance: </strong>{Seeker.dist.toFixed(4)} Kms<br /><br />
                                 </div>
                             ))}
+                            </div>
                         </div>
                     </div>
                     <div className="Provide-right">
