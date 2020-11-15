@@ -91,7 +91,6 @@ class EditProfile extends Component {
             changelocation:e.target.checked,
             
         })
-        console.log(e.target.checked);
     }
     handleSubmit(){
         axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{

@@ -46,7 +46,7 @@ input[type=checkbox]{
 }
 .seekList{
     overflow-y: scroll;
-    max-height: 150px;
+    max-height: 80vh;
 }
 .seekers{
     cursor: pointer;
@@ -54,6 +54,9 @@ input[type=checkbox]{
     margin: 10px 12.5px;
     border-radius: 5px;
     background-color: rgb(204, 245, 245);
-    box-shadow: 2.5px 3.5px 10px black;
     font-size: 18.5px;
+}
+.seekers:hover{
+    box-shadow: 2.5px 3.5px 10px black;
+
 }
