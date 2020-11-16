@@ -149,7 +149,7 @@ class Provide extends Component {
                             <input type="checkbox" checked={this.state.provide} onClick={this.toggleProvide} /> 
                         </div>
                         <div>
-                            <h2>People in need</h2>
+                            <h2 className="peopleNeed">People in need</h2>
                             <div className="seekList">
                             {this.state.Seekers.map(Seeker => (
                                 <div className="seekers" onClick={() => this.requestSeekerDetails(Seeker.username,Seeker.dist)}>

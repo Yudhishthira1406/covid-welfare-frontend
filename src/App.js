@@ -4,6 +4,7 @@ import './App.css';
 import GetStarted from './GetStarted'
 import IntroPage from './IntroPage'
 import MyProfile from './MyProfile'
+import Notifications from './Notifications'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserEdit,faToggleOff,faToggleOn,faMapMarkedAlt  } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -54,6 +55,9 @@ class App extends Component {
             </Route>
             <Route exact path="/EditProfile/:username/">
               <EditProfile />                                       
+            </Route>
+            <Route exact path="/Notifications/:username/">
+              <Notifications />
             </Route>
           </Switch>
         </Router>
