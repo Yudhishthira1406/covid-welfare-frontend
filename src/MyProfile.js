@@ -20,9 +20,10 @@ class MyProfile extends Component {
             User:"",username:"",token:"",
         }
         this.handleEdit=this.handleEdit.bind(this);
+        this.checkLogin=this.checkLogin.bind(this);
     }
     componentDidMount(){
-        if(localStorage.getItem('username')===null){
+        if(!this.checkLogin()){
             console.log("unauthenticated");
             this.props.history.push("/GetStarted");
         }
@@ -42,6 +43,12 @@ class MyProfile extends Component {
             console.log(error);
         })
         }
+    }
+    checkLogin(){
+        if(localStorage.getItem('username')===null){
+            return false;
+        }
+        return true;
     }
     handleEdit(){
         this.props.history.push(`/EditProfile/${localStorage.getItem('username')}`)

@@ -10,10 +10,34 @@ export class Pmap extends Component{
     this.state = {
       mylat: 1,mylon: 1,Users:[]
     };
+    this.showMyLocation=this.showMyLocation.bind(this);
+    this.showSeekers=this.showSeekers.bind(this);
   }
   componentDidMount(){
     // this.getCoords();
-        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/${this.props.type}list`,{
+        this.showMyLocation();
+  }
+  showMyLocation(){
+    axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        })      
+        .then(response => {
+            this.setState({
+                // Users:response.data.data,
+                mylat: response.data.lat,
+                mylon: response.data.lon,
+            })
+            console.log(this.state.mylat + " " + this.state.mylon);
+            this.showSeekers();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+  }
+  showSeekers(){
+    axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/${this.props.type}list`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
@@ -27,24 +51,6 @@ export class Pmap extends Component{
         .catch(error => {
             console.log(error);
         })
-
-        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
-            headers: {
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })      
-        .then(response => {
-            this.setState({
-                // Users:response.data.data,
-                mylat: response.data.lat,
-                mylon: response.data.lon,
-            })
-            console.log(this.state.mylat + " " + this.state.mylon);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-        
   }
   render(){
       const containerStyle = {
@@ -92,7 +98,7 @@ export class Pmap extends Component{
           {this.state.Users.map(User => (
             <Marker
             onClick={()=>{
-              this.props.handleMarkerClick(User.username,User.dist);
+              this.props.requestSeekerDetails(User.username,User.dist);
             }}
             title={`${User.username} | ${User.dist} Kms `}
             name={User.username}

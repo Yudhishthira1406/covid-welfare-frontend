@@ -23,10 +23,7 @@ library.add(faUserEdit,faToggleOff,faToggleOn,faMapMarkedAlt)
 class App extends Component { 
   constructor(props) {
     super(props);
-    this.state = { }
-  }
-  componentDidMount(){
-    
+    this.state = {}
   }
   render() { 
     return ( 

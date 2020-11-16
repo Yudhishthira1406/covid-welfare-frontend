@@ -17,12 +17,13 @@ class Provide extends Component {
     constructor(props) {
         super(props);
         this.state = { User:[],provide:"",Seekers:[],userClicked:[],dist:"",seektext:""}
-        this.handleProvide=this.handleProvide.bind(this);
-        this.handleMarkerClick=this.handleMarkerClick.bind(this);
+        this.toggleProvide=this.toggleProvide.bind(this);
+        this.requestSeekerDetails=this.requestSeekerDetails.bind(this);
         this.handleCloseButton=this.handleCloseButton.bind(this);
+        this.checkLogin=this.checkLogin.bind(this);
     }
     componentDidMount(){
-        if(localStorage.getItem('username')===null){
+        if(!this.checkLogin()){
             console.log("unauthenticated");
             this.props.history.push("/GetStarted");
         }
@@ -59,7 +60,13 @@ class Provide extends Component {
             })
         }
     }
-    handleMarkerClick = (username,dist)=>{
+    checkLogin(){
+        if(localStorage.getItem('username')===null){
+            return false;
+        }
+        return true;
+    }
+    requestSeekerDetails = (username,dist)=>{
         // alert("Marker Clicked" + username);
         this.setState({
           dist:dist,
@@ -104,7 +111,7 @@ class Provide extends Component {
         })
         document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
       }
-    handleProvide(e){
+    toggleProvide(e){
         axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
             contact:  this.state.User.contact,
             occupation: this.state.User.occupation,
@@ -139,13 +146,13 @@ class Provide extends Component {
                     <div className="Provide-center">
                         <div className="Provide-input" >
                             <label>Provide</label>
-                            <input type="checkbox" checked={this.state.provide} onClick={this.handleProvide} /> 
+                            <input type="checkbox" checked={this.state.provide} onClick={this.toggleProvide} /> 
                         </div>
                         <div>
                             <h2 className="peopleNeed">People in need</h2>
                             <div className="seekList">
                             {this.state.Seekers.map(Seeker => (
-                                <div className="seekers" onClick={() => this.handleMarkerClick(Seeker.username,Seeker.dist)}>
+                                <div className="seekers" onClick={() => this.requestSeekerDetails(Seeker.username,Seeker.dist)}>
                                     <strong>Name: </strong>{Seeker.username}<br />
                                     <strong>Distance: </strong>{Seeker.dist.toFixed(4)} Kms<br /><br />
                                 </div>
@@ -154,7 +161,7 @@ class Provide extends Component {
                         </div>
                     </div>
                     <div className="Provide-right">
-                        <Pmap type={"provide"} handleCloseButton={this.handleCloseButton} handleMarkerClick={this.handleMarkerClick} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
+                        <Pmap type={"provide"} handleCloseButton={this.handleCloseButton} requestSeekerDetails={this.requestSeekerDetails} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
                     </div>
                 </div>
             </div>
