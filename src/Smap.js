@@ -8,18 +8,43 @@ export class Smap extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      mylat: 1,mylon: 1,Users:[],userClicked:{},dist:""
+      mylat: 1,mylon: 1,Users:[],userClicked:[],dist:"",
     };
-    this.handleMarkerClick=this.handleMarkerClick.bind(this);
+    this.requestProviderDetails=this.requestProviderDetails.bind(this);
+    this.showMyLocation=this.showMyLocation.bind(this);
+    this.showProviders=this.showProviders.bind(this);
   }
   componentDidMount(){
-    // this.getCoords();
-        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/${this.props.type}list`,{
+        this.showMyLocation();
+  }
+  async showMyLocation(){
+    axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
+      headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`
+      }
+  })      
+  .then(response => {
+      this.setState({
+          // Users:response.data.data,
+          mylat: response.data.lat,
+          mylon: response.data.lon,
+      })
+      console.log(this.state.mylat + " " + this.state.mylon);
+      this.showProviders();
+  })
+  .catch(error => {
+      console.log(error);
+  })
+  }
+  async showProviders(){
+    console.log("showProviders");
+    axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
         })      
         .then(response => {
+            console.log("aa");
             this.setState({
                 Users:response.data.data,
             })
@@ -28,42 +53,9 @@ export class Smap extends Component{
         .catch(error => {
             console.log(error);
         })
-
-        axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/`,{
-            headers: {
-                'Authorization': `Token ${localStorage.getItem('token')}`
-            }
-        })      
-        .then(response => {
-            this.setState({
-                // Users:response.data.data,
-                mylat: response.data.lat,
-                mylon: response.data.lon,
-            })
-            console.log(this.state.mylat + " " + this.state.mylon);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-        
   }
-
-  // calcDistance=(lat1,lon1,lat2,lon2)=>{
-  //   const R = 6371; // metres
-  //   const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-  //   const φ2 = lat2 * Math.PI/180;
-  //   const Δφ = (lat2-lat1) * Math.PI/180;
-  //   const Δλ = (lon2-lon1) * Math.PI/180;
-  //   const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-  //     Math.cos(φ1) * Math.cos(φ2) *
-  //     Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  //   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  //   const d = R * c; // in metres
-  //   //console.log(d);
-  //   return d/1000;
-  // }
-
-  handleMarkerClick = (username,dist)=>{
+  
+  requestProviderDetails = (username,dist)=>{
     // alert("Marker Clicked" + username);
     this.setState({
       dist:dist,
@@ -137,7 +129,7 @@ export class Smap extends Component{
           {this.state.Users.map(User => (
             <Marker
             onClick={()=>{
-              this.handleMarkerClick(User.username,User.dist);
+              this.requestProviderDetails(User.username,User.dist);
             }}
             title={`${User.username} | ${User.dist} Kms `}
             name={User.username}

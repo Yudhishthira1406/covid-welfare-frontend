@@ -20,9 +20,10 @@ class MyProfile extends Component {
             User:"",username:"",token:"",
         }
         this.handleEdit=this.handleEdit.bind(this);
+        this.checkLogin=this.checkLogin.bind(this);
     }
     componentDidMount(){
-        if(localStorage.getItem('username')===null){
+        if(!this.checkLogin()){
             console.log("unauthenticated");
             this.props.history.push("/GetStarted");
         }
@@ -42,6 +43,12 @@ class MyProfile extends Component {
             console.log(error);
         })
         }
+    }
+    checkLogin(){
+        if(localStorage.getItem('username')===null){
+            return false;
+        }
+        return true;
     }
     handleEdit(){
         this.props.history.push(`/EditProfile/${localStorage.getItem('username')}`)
@@ -64,7 +71,7 @@ class MyProfile extends Component {
                             <div className="MyProfile-picture">
                                 {localStorage.getItem('username')[0].toUpperCase()}
                             </div>
-                            <FontAwesomeIcon icon="user-edit" onClick={this.handleEdit} className="useredit" />
+                            <FontAwesomeIcon icon="user-edit" onClick={this.handleEdit} className="useredit" title="Edit Details"/>
                         </div>
                         <div className="MyProfile-details">
                             <p className="attribute-para"><span className="profile-atrribute">Name:  </span><br/>{localStorage.getItem('username')[0].toUpperCase()+localStorage.getItem('username').slice(1)}</p>
@@ -83,12 +90,12 @@ class MyProfile extends Component {
                     </div>
                     <div className="MyProfile-right">
                         <div className="MyProfile-motivation">
-                        <button className="MyProfile-motivation-button" onClick={this.handleEdit}>
+                        {/* <button className="MyProfile-motivation-button" onClick={this.handleEdit}>
                                 Edit
-                         </button>
+                         </button> */}
                             {/* <p>
                             </p> */}
-                            <p className="motivational-para">{this.quotes[Math.floor(Math.random()*4)]}</p>
+                            <p className="motivational-para">{this.quotes[Math.floor(Math.random()*5)]}</p>
                         </div>
                         
                     </div>

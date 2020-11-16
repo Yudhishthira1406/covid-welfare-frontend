@@ -15,14 +15,15 @@ class Seek extends Component {
         super(props);
         this.state = { Users:[], seektext:"" }
         this.handleSeekChange=this.handleSeekChange.bind(this);
-        this.handleConfirm=this.handleConfirm.bind(this);
+        this.requestHelp=this.requestHelp.bind(this);
+        this.checkLogin=this.checkLogin.bind(this);
     }
     componentDidMount(){
-        if(localStorage.getItem('username')===null){
+        if(!this.checkLogin()){
             console.log("unauthenticated");
             this.props.history.push("/GetStarted");
         }
-        else{
+        /*else{
             axios.get(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seeklist`,{
             headers: {
                 'Authorization': `Token ${localStorage.getItem('token')}`
@@ -37,14 +38,25 @@ class Seek extends Component {
         .catch(error => {
             console.log(error);
         })
+        }*/
+    }
+    checkLogin(){
+        if(localStorage.getItem('username')===null){
+            return false;
         }
+        return true;
     }
     handleSeekChange(e){
-        this.setState({
-            seektext: e.target.value,
-        })
+        if(e.target.value.length<=300){
+            this.setState({
+                seektext: e.target.value,
+            })
+        }
+        else{
+            alert("Limit Exceeded...");
+        }
     }
-    handleConfirm(e){
+    requestHelp(e){
         axios.post(`http://127.0.0.1:8000/api/${localStorage.getItem('username')}/seek/`,{
             seek_text: this.state.seektext,
         },{
@@ -59,6 +71,9 @@ class Seek extends Component {
         .catch(error => {
             console.log(error);
         })
+        this.setState({
+            seektext:"",
+        })
     }
     render(){ 
         return (
@@ -69,8 +84,8 @@ class Seek extends Component {
                     </div>
                     <div className="Seek-center">
                     <h2>How can we help you?</h2> 
-                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "80%", height:"70%"}} ></textarea>
-                    <button className="seek-button" onClick={this.handleConfirm}>Confirm</button>
+                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "80%", height:"70%", fontSize: "27px"}} ></textarea>
+                    <button className="seek-button" onClick={this.requestHelp}>Confirm</button>
                     </div>
                     <div className="Seek-right">
                         <Smap type={"seek"} />

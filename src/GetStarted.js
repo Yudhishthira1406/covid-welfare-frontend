@@ -31,6 +31,12 @@ class GetStarted extends Component {
         this.handleLoginpass=this.handleLoginpass.bind(this);
         this.handleLogin=this.handleLogin.bind(this);
     }
+
+    componentDidMount(){
+        if(localStorage.getItem('token')){
+            this.props.history.push(`/MyProfile/${localStorage.getItem('username')}`);
+        }
+    }
     handleLoginchange(e){
         this.setState({
             Username:e.target.value,
