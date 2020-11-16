@@ -9,12 +9,14 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-
+import  './Notifications.css'
 class Notifications extends Component {
     render(){
         return(
             <div>
-                <Navbar />
+                <div className="notify-left">
+                    <Navbar />
+                </div>
             </div>
         )
     }
