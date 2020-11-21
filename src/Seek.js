@@ -84,7 +84,7 @@ class Seek extends Component {
                     </div>
                     <div className="Seek-center">
                     <h2>How can we help you?</h2> 
-                    <textarea type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "80%", height:"70%", fontSize: "27px"}} ></textarea>
+                    <textarea placeholder="Enter your request......." type="text" value={this.state.seektext} onChange={this.handleSeekChange} style={{resize: "none",width: "80%", height:"70%", fontSize: "27px"}} ></textarea>
                     <button className="seek-button" onClick={this.requestHelp}>Confirm</button>
                     </div>
                     <div className="Seek-right">
