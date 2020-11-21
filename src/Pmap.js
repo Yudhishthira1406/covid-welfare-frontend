@@ -12,6 +12,7 @@ export class Pmap extends Component{
     };
     this.showMyLocation=this.showMyLocation.bind(this);
     this.showSeekers=this.showSeekers.bind(this);
+    this.handleRequestButton = this.handleRequestButton.bind(this);
   }
   componentDidMount(){
     // this.getCoords();
@@ -52,6 +53,20 @@ export class Pmap extends Component{
             console.log(error);
         })
   }
+  handleRequestButton = ()=>{
+    axios.post(`http://127.0.0.1:8000/notification/providereq/`,
+            {
+              user: this.props.userClicked.username,
+            },
+            {
+              headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            },
+
+    })
+    alert("Request Succesfully SENT....");
+    document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
+  }
   render(){
       const containerStyle = {
           position: 'relative',  
@@ -73,7 +88,7 @@ export class Pmap extends Component{
             <p className="attribute-para-map"><span className="profile-atrribute-map">Occupation:  </span><br/>{this.props.userClicked.occupation}</p>
             <p className="attribute-para-map"><span className="profile-atrribute-map">In need of:  </span><br/>{this.props.seektext}</p>
 
-            <button onClick={this.props.handleCloseButton}>CLOSE</button>
+            <button onClick={this.props.handleRequestButton}>Request</button>
           </div>
         </h1>
         <Map google={this.props.google}
