@@ -2,34 +2,66 @@
     height: 100vh;
     width: 100%;
 }*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
 .Provide-cntr{
     display: flex;
     flex-direction: row;
     height: 100vh;
     width: 100%;
-    border: 1px black solid;
 }
 .Provide-left{
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 25%;
-    border: 1px black solid;
-    background-color: #212121;
+    width: 20%;
+    /* border: 1px black solid; */
 }
 .Provide-center{
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 40%;
-    border: 1px black solid;
 }
 .Provide-right{
     display: flex;
     flex-direction: row;
     height: 100vh;
     width: 40%;
-    border: 1px black solid;
     overflow: hidden;
     
+}
+.Provide-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 20px;
+    margin-top: 3%;
+}
+input[type=checkbox]{
+    zoom:1.5;
+}
+.peopleNeed{
+    margin: 10px 12.5px;
+    font-size: 40px;
+    color: darkslategray;
+}
+.seekList{
+    overflow-y: scroll;
+    max-height: 80vh;
+}
+.seekers{
+    cursor: pointer;
+    padding: 5px 7.5px;
+    margin: 10px 12.5px;
+    border-radius: 5px;
+    background-color: rgb(204, 245, 245);
+    font-size: 18.5px;
+}
+.seekers:hover{
+    box-shadow: 2.5px 3.5px 10px black;
+
 }

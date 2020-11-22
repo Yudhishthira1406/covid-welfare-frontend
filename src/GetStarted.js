@@ -19,7 +19,7 @@ class GetStarted extends Component {
             User:{
                 userName:"",emailId:"",password:"",password2:""
             },
-            Username:"",pass:""
+            Username:"",pass:"",loginError:""
         }
         //this.handleSubmit=this.handleSubmit.bind(this);
         this.handleSignUp=this.handleSignUp.bind(this);
@@ -30,6 +30,12 @@ class GetStarted extends Component {
         this.handleLoginchange=this.handleLoginchange.bind(this);
         this.handleLoginpass=this.handleLoginpass.bind(this);
         this.handleLogin=this.handleLogin.bind(this);
+    }
+
+    componentDidMount(){
+        if(localStorage.getItem('token')){
+            this.props.history.push(`/MyProfile/${localStorage.getItem('username')}`);
+        }
     }
     handleLoginchange(e){
         this.setState({
@@ -75,20 +81,31 @@ class GetStarted extends Component {
     }
     handleSignUp(){
         console.log(this.state.User);
-        axios.post('http://127.0.0.1:8000/api/user/register/',{
-            username: this.state.User.userName,
-            email: this.state.User.emailId,
-            password: this.state.User.password,
-            password2: this.state.User.password2,
-        })
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-        this.mainInput.value="";
-        alert("Registration completd please log in now");
+        if(this.state.User.userName!="" && this.state.User.emailId!="" && this.state.User.password!="" && this.state.User.password2!=""){
+            if(this.state.User.password===this.state.User.password2){
+                axios.post('http://127.0.0.1:8000/api/user/register/',{
+                username: this.state.User.userName,
+                email: this.state.User.emailId,
+                password: this.state.User.password,
+                password2: this.state.User.password2,
+                })
+                .then(response => {
+                    console.log(response);
+                    localStorage.setItem('token',response.data.token);
+                    localStorage.setItem('username',this.state.User.userName);
+                    this.props.history.push(`/EditProfile/${this.state.User.userName}`)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+                //this.mainInput.value="";
+                //alert("Registration completd please log in now");
+                
+            }
+            else{
+                alert("Passwords do not match");
+            }            
+        }
         
     }
     handleLogin(){
@@ -103,6 +120,15 @@ class GetStarted extends Component {
             this.props.history.push(`/MyProfile/${localStorage.getItem('username')}`);
         })
         .catch(error=>{
+            // this.setState((errormsg)=>{
+            //     let newstate = errormsg;
+            //     newstate.loginError = "Incorrect Username or Password. Please Try Again....";
+            //     return newstate;
+            // })
+            this.setState({
+                loginError: "Incorrect Username or Password. Please Try Again....",
+            });
+            // alert("Incorrect Username or Password. Please Try Again....");
             console.log(error);
         })
         
@@ -113,16 +139,16 @@ class GetStarted extends Component {
             <div>
                 <div className="container">
                     <div className="signup">
-                        <h1>SIGN UP</h1>
+                        <h1>JOIN US</h1>
                         <form onSubmit={this.handleSignUp}>
                             <label>Username</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} /><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.userName} onChange={this.handleUsnmChange} required/><br />
                             <label>Email id</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} /><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="text" value={this.state.User.emailId} onChange={this.handleEmailChange} required/><br />
                             <label>Password</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} /><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password} onChange={this.handlePasswordChange} required/><br />
                             <label>Confirm password</label><br />
-                            <input ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} /><br />
+                            <input className="inputs" ref={(ref) => this.mainInput= ref} type="password" value={this.state.User.password2} onChange={this.handlePassword2Change} required/><br />
                         </form>
                         <button onClick={this.handleSignUp} className="b1">SIGN UP</button>
                     </div>
@@ -130,9 +156,10 @@ class GetStarted extends Component {
                         <h1>LOG IN</h1>
                         <form>
                             <label>Username</label><br />
-                            <input type="text" value={this.state.Username} onChange={this.handleLoginchange} /><br />
+                            <input className="inputs" type="text" value={this.state.Username} onChange={this.handleLoginchange} /><br />
                             <label>Password</label><br />
-                            <input type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
+                            <input className="inputs" type="password" value={this.state.pass} onChange={this.handleLoginpass} /><br />
+                            <h4 className="login-error">{this.state.loginError}</h4>
                         </form>
                         <button onClick={this.handleLogin} className="b3">LOG IN</button>
                         
