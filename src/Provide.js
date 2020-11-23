@@ -21,6 +21,7 @@ class Provide extends Component {
         this.requestSeekerDetails=this.requestSeekerDetails.bind(this);
         this.handleRequestButton=this.handleRequestButton.bind(this);
         this.checkLogin=this.checkLogin.bind(this);
+        this.handleCloseButton=this.handleCloseButton.bind(this);
     }
     componentDidMount(){
         if(!this.checkLogin()){
@@ -178,6 +179,9 @@ class Provide extends Component {
             console.log(error);
         })
     }
+    handleCloseButton(){
+        document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
+    }
     render(){ 
         return (
             <div className="Provide-prnt">
@@ -203,7 +207,7 @@ class Provide extends Component {
                         </div>
                     </div>
                     <div className="Provide-right">
-                        <Pmap type={"provide"} handleRequestButton={this.handleRequestButton} requestSeekerDetails={this.requestSeekerDetails} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
+                        <Pmap type={"provide"} handleCloseButton={this.handleCloseButton} handleRequestButton={this.handleRequestButton} requestSeekerDetails={this.requestSeekerDetails} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
                     </div>
                 </div>
             </div>
