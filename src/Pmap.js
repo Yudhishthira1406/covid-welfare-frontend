@@ -74,7 +74,8 @@ export class Pmap extends Component{
             <p className="attribute-para-map"><span className="profile-atrribute-map">Occupation:  </span><br/>{this.props.userClicked.occupation}</p>
             <p className="attribute-para-map"><span className="profile-atrribute-map">In need of:  </span><br/>{this.props.seektext}</p>
 
-            <button onClick={this.props.handleRequestButton}>Request</button>
+            <button onClick={this.props.handleRequestButton}>Request</button><br />
+            <button onClick={this.props.handleCloseButton}>Close</button>
           </div>
         </h1>
         <Map google={this.props.google}
