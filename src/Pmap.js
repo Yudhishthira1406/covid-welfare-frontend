@@ -52,6 +52,7 @@ export class Pmap extends Component{
             console.log(error);
         })
   }
+  
   render(){
       const containerStyle = {
           position: 'relative',  
@@ -73,7 +74,7 @@ export class Pmap extends Component{
             <p className="attribute-para-map"><span className="profile-atrribute-map">Occupation:  </span><br/>{this.props.userClicked.occupation}</p>
             <p className="attribute-para-map"><span className="profile-atrribute-map">In need of:  </span><br/>{this.props.seektext}</p>
 
-            <button onClick={this.props.handleCloseButton}>CLOSE</button>
+            <button onClick={this.props.handleRequestButton}>Request</button>
           </div>
         </h1>
         <Map google={this.props.google}

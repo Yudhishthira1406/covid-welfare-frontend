@@ -85,6 +85,24 @@ export class Smap extends Component{
     })
     document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
   }
+
+  handleRequestButton = ()=>{
+    axios.post(`http://127.0.0.1:8000/notification/seekreq/`,
+            {
+              user: this.state.userClicked.username,
+            },
+            {
+              headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            },
+
+    })
+    this.setState({
+      userclicked: {},
+    })
+    alert("Request Succesfully SENT....");
+    document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
+  }
   render(){
       const containerStyle = {
           position: 'relative',  
@@ -104,7 +122,8 @@ export class Smap extends Component{
             <p className="attribute-para-map"><span className="profile-atrribute-map">Address:  </span><br/>{this.state.userClicked.address}</p>
             <p className="attribute-para-map"><span className="profile-atrribute-map">Occupation:  </span><br/>{this.state.userClicked.occupation}</p>
             <p className="attribute-para-map"><span className="profile-atrribute-map">Distance form you:  </span><br/>{this.state.dist}</p>
-            <button onClick={this.handleCloseButton}>CLOSE</button>
+            <button onClick={this.handleRequestButton}>Request</button>
+            <button onClick={this.handleCloseButton}>Close</button>
           </div>
         </h1>
         <Map google={this.props.google}

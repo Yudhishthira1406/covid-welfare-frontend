@@ -19,7 +19,7 @@ class Provide extends Component {
         this.state = { User:[],provide:"",Seekers:[],userClicked:[],dist:"",seektext:""}
         this.toggleProvide=this.toggleProvide.bind(this);
         this.requestSeekerDetails=this.requestSeekerDetails.bind(this);
-        this.handleCloseButton=this.handleCloseButton.bind(this);
+        this.handleRequestButton=this.handleRequestButton.bind(this);
         this.checkLogin=this.checkLogin.bind(this);
     }
     componentDidMount(){
@@ -105,10 +105,52 @@ class Provide extends Component {
           })
           document.getElementsByClassName('invisible')[0].style.zIndex = "1";
       }
-      handleCloseButton = ()=>{
-        this.setState({
-          userclicked: {},
+      handleRequestButton = ()=>{
+        axios.post(`http://127.0.0.1:8000/notification/providereq/`,
+                {
+                  user: this.state.userClicked.username,
+                },
+                {
+                  headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                },
+    
         })
+        .then(response => {
+            console.log(response);
+        })
+        .catch( error =>{
+            console.log(error);
+        }
+        )
+        axios.get(`http://127.0.0.1:8000/notification/providereq/`,
+                {
+                  headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                },
+    
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch( error =>{
+            console.log(error);
+        }
+        )
+        axios.get(`http://127.0.0.1:8000/notification/seekreq/`,
+                {
+                  headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                },
+    
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch( error =>{
+            console.log(error);
+        }
+        )
         document.getElementsByClassName('invisible')[0].style.zIndex = "-1";
       }
     toggleProvide(e){
@@ -161,7 +203,7 @@ class Provide extends Component {
                         </div>
                     </div>
                     <div className="Provide-right">
-                        <Pmap type={"provide"} handleCloseButton={this.handleCloseButton} requestSeekerDetails={this.requestSeekerDetails} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
+                        <Pmap type={"provide"} handleRequestButton={this.handleRequestButton} requestSeekerDetails={this.requestSeekerDetails} userClicked={this.state.userClicked} dist={this.state.dist} seektext={this.state.seektext} />
                     </div>
                 </div>
             </div>
